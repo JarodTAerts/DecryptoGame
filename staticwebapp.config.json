@@ -1,0 +1,14 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "methods": [
+        "get"
+      ],
+      "rewrite": "/Index.html",
+      "allowedRoles": [
+        "anonymous"
+      ]
+    }
+  ]
+}
