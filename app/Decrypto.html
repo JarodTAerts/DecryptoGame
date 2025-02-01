@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decrypto Game</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .word-label {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Decrypto Game</h1>
+    <div id="word-labels"></div>
+    <button class="button" onclick="getRandomWords()">New Words</button>
+    <div id="code-label"></div>
+    <button class="button" onclick="hideCode()">Hide Code</button>
+    <button class="button" onclick="newCode()">New Code</button>
+
+    <script>
+        const words = ["car", "apple", "dog", "house"];
+        let currentCode = "";
+
+        function getRandomWords() {
+            fetch('english-nouns.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const allWords = data.split('\n');
+                    const randomWords = [];
+                    for (let i = 0; i < 4; i++) {
+                        randomWords.push(allWords[Math.floor(Math.random() * allWords.length)]);
+                    }
+                    updateWordLabels(randomWords);
+                })
+                .catch(error => alert(`Failed to get words: ${error}`));
+        }
+
+        function updateWordLabels(words) {
+            const wordLabelsDiv = document.getElementById('word-labels');
+            wordLabelsDiv.innerHTML = '';
+            words.forEach((word, index) => {
+                const label = document.createElement('div');
+                label.className = 'word-label';
+                label.textContent = `${index + 1}: ${word}`;
+                wordLabelsDiv.appendChild(label);
+            });
+        }
+
+        function newCode() {
+            currentCode = Array.from({ length: 3 }, () => Math.floor(Math.random() * 3) + 1).join('');
+            document.getElementById('code-label').textContent = `Current Code: ${currentCode}`;
+        }
+
+        function hideCode() {
+            document.getElementById('code-label').textContent = '';
+        }
+
+        // Initialize the game
+        updateWordLabels(words);
+        newCode();
+    </script>
+</body>
+</html>
