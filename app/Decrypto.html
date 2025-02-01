@@ -6,6 +6,11 @@
     <title>Decrypto Game</title>
     <style>
         body {
+            background-color: grey;
+        }
+    </style>
+    <style>
+        body {
             font-family: Helvetica, sans-serif;
             text-align: center;
             margin: 20px;
@@ -23,7 +28,9 @@
     <h1>Decrypto Game</h1>
     <div id="word-labels"></div>
     <button class="button" onclick="getRandomWords()">New Words</button>
-    <div id="code-label"></div>
+    <div id="code-container" style="width: 200px; height: 50px; margin: 0 auto;">
+        <div id="code-label"></div>
+    </div>
     <button class="button" onclick="hideCode()">Hide Code</button>
     <button class="button" onclick="newCode()">New Code</button>
 
@@ -49,20 +56,45 @@
             const wordLabelsDiv = document.getElementById('word-labels');
             wordLabelsDiv.innerHTML = '';
             words.forEach((word, index) => {
-                const label = document.createElement('div');
-                label.className = 'word-label';
-                label.textContent = `${index + 1}: ${word}`;
-                wordLabelsDiv.appendChild(label);
+            const card = document.createElement('div');
+            card.style.width = '100px';
+            card.style.height = '100px';
+            card.style.backgroundColor = 'white';
+            card.style.borderRadius = '10px';
+            card.style.margin = '10px auto';
+            card.className = 'word-card';
+            card.textContent = `${index + 1}: ${word}`;
+            card.style.display = 'flex';
+            card.style.alignItems = 'center';
+            card.style.justifyContent = 'center';
+            wordLabelsDiv.appendChild(card);
             });
         }
 
         function newCode() {
-            currentCode = Array.from({ length: 3 }, () => Math.floor(Math.random() * 3) + 1).join('');
+            const generateUniqueCode = () => {
+                const numbers = [1, 2, 3];
+                let code = '';
+                while (code.length < 3) {
+                    const randomIndex = Math.floor(Math.random() * numbers.length);
+                    code += numbers.splice(randomIndex, 1);
+                }
+                return code;
+            };
+            currentCode = generateUniqueCode();
             document.getElementById('code-label').textContent = `Current Code: ${currentCode}`;
         }
 
         function hideCode() {
-            document.getElementById('code-label').textContent = '';
+            const codeLabel = document.getElementById('code-label');
+            const hideButton = document.querySelector('button[onclick="hideCode()"]');
+            if (codeLabel.style.display === 'none') {
+            codeLabel.style.display = 'block';
+            hideButton.textContent = 'Hide Code';
+            } else {
+            codeLabel.style.display = 'none';
+            hideButton.textContent = 'Show Code';
+            }
         }
 
         // Initialize the game
