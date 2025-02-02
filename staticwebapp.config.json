@@ -12,6 +12,19 @@
       "allowedRoles": [
         "anonymous"
       ]
+    },
+    {
+      "route": "/code",
+      "methods": [
+        "get",
+        "options",
+        "trace",
+        "head"
+      ],
+      "redirect": "/codemaster.html",
+      "allowedRoles": [
+        "anonymous"
+      ]
     }
   ]
 }
