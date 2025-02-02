@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: grey;
+        }
+        .button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Codemaster</h1>
+    <div id="code-container" style="width: 200px; height: 30px; margin: 0 auto;">
+        <div id="code-label"></div>
+    </div>
+    <button class="button" onclick="hideCode()">Hide Code</button>
+    <button class="button" onclick="newCode()">New Code</button>
+
+    <script>
+        let currentCode = "";
+
+        function newCode() {
+            const generateUniqueCode = () => {
+                const numbers = [1, 2, 3, 4];
+                let code = '';
+                while (code.length < 3) {
+                    const randomIndex = Math.floor(Math.random() * numbers.length);
+                    code += numbers.splice(randomIndex, 1);
+                }
+                return code;
+            };
+            currentCode = generateUniqueCode();
+            document.getElementById('code-label').textContent = `Current Code: ${currentCode}`;
+        }
+
+        function hideCode() {
+            const codeLabel = document.getElementById('code-label');
+            const hideButton = document.querySelector('button[onclick="hideCode()"]');
+            if (codeLabel.style.display === 'none') {
+                codeLabel.style.display = 'block';
+                hideButton.textContent = 'Hide Code';
+            } else {
+                codeLabel.style.display = 'none';
+                hideButton.textContent = 'Show Code';
+            }
+        }
+
+        // Initialize the code
+        newCode();
+    </script>
+</body>
+</html>
