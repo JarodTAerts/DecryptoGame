@@ -3,16 +3,6 @@
     {
       "route": "/",
       "methods": [
-        "get"
-      ],
-      "rewrite": "/Index.html",
-      "allowedRoles": [
-        "anonymous"
-      ]
-    },
-    {
-      "route": "/",
-      "methods": [
         "get",
         "options",
         "trace",
