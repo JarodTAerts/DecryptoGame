@@ -21,6 +21,10 @@
     <div id="code-container" style="width: 200px; height: 30px; margin: 0 auto;">
         <div id="code-label"></div>
     </div>
+    <div>
+        <input type="checkbox" id="allow-repeat" name="allow-repeat">
+        <label for="allow-repeat">Allow repeat numbers</label>
+    </div>
     <button class="button" onclick="hideCode()">Hide Code</button>
     <button class="button" onclick="newCode()">New Code</button>
 
@@ -29,11 +33,15 @@
 
         function newCode() {
             const generateUniqueCode = () => {
+                const allowRepeat = document.getElementById('allow-repeat').checked;
                 const numbers = [1, 2, 3, 4];
                 let code = '';
                 while (code.length < 3) {
                     const randomIndex = Math.floor(Math.random() * numbers.length);
-                    code += numbers.splice(randomIndex, 1);
+                    code += numbers[randomIndex];
+                    if (!allowRepeat) {
+                        numbers.splice(randomIndex, 1);
+                    }
                 }
                 return code;
             };
